@@ -1,0 +1,108 @@
+<%-include("partial/head")%>
+<body>
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/logo/loder.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <%-include("partial/navbar")%>
+    <main>
+          <!--? Hero Start -->
+	<div class="slider-area2" style="height: 200px;">
+		<div class="slider-height2 d-flex align-items-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12" style="height: 300px;">
+						<div class="hero-cap hero-cap2 text-center">
+							<h2>Blog</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Hero End -->
+        <!--================Blog Area =================-->
+        <section class="blog_area section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mb-5 mb-lg-0">
+                        <div class="blog_left_sidebar">
+                            <% let count=0; if(blogs.length> 0) {%>
+                                <% for(data of blogs) { if(data.status){%>
+                            <article class="blog_item"href="/blog-single/<%-data.slug %>">
+                                <div class="blog_item_img">
+                                    <img class="card-img rounded-0" src="/upload/<%=data.PostImage %>" alt="" height="400px" width="700px">
+                                    <a href="#" class="blog_item_date">
+                                        <h3><%-data.createAt.toDateString()%></h3>
+                                        
+                                    </a>
+                                </div>
+                                <div class="blog_details">
+                                    <a class="d-inline-block" href="/blog-single/<%-data.slug %>">
+                                        <h1 class="blog-head" style="color: #2d2d2d;"><%=data.title%></h1>
+                                        <h3 class="blog-head" style="color: #2d2d2d;"><%=data.subtitle%></h3>
+                                    </a>
+                                    <h4 class="blog-head" style="color: #2d2d2d;"><%=data.content.slice(0,400)+"..."%></h4>
+                                    
+                                    <h3><a href="/blog-single/<%-data.slug %>" class="read-more1">Read more</a></h3>
+                                    <p></p>
+                                    <ul class="blog-info-link">
+                                    </ul>
+                                </div>
+                            </article>
+                            <%} } }%>
+                            
+                        </div>
+                    </div>
+
+
+                    <!-- Recent Post & Comment Starts here -->
+                    <div class="col-lg-4">
+                        <div class="blog_right_sidebar">
+                            <aside class="single_sidebar_widget search_widget">
+                                <form action="/search" method="post">
+                                    <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" name="input" placeholder='Search Keyword'
+                                                onfocus="this.placeholder = ''"
+                                                onblur="this.placeholder = 'Search Keyword'">
+                                            <div class="input-group-append">
+                                                <button class="btns" type="button"><i class="ti-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                                        type="submit">Search</button>
+                                </form>
+                            </aside>
+                           
+                            <aside class="single_sidebar_widget popular_post_widget">
+                                <h3 class="widget_title" style="color: #2d2d2d;">Recent Post</h3>
+                                <% for(data of blogs) { if(data.status) {%>
+                                <div class="media post_item">
+                                    <a href="/blog-single/<%-data.slug %>"><img src="/upload/<%=data.PostImage %>" alt="" class="img-responsive" style="width: 90px; height: 100px;" /></a>
+                                    <div class="media-body">
+                                        <h1 style="color: #000000"><a href="/blog-single/<%-data.slug %>"><%-data.title %> </a></h4>
+                                        <time datetime="2020-01-01"><%-data.createAt.toDateString()%></time>
+                                      </div>            
+                                        </a>        
+                                    </div>
+                                    <% }} %>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================Blog Area =================-->
+    </main>
+    <%-include("partial/footer")%>

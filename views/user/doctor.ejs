@@ -1,0 +1,89 @@
+<%-include("partial/head")%>
+<body>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/logo/loder.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+
+    <%-include("partial/navbar")%>
+        <main>
+            <div class="slider-area2" style="height: 200px;">
+                <div class="slider-height2 d-flex align-items-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-12" style="margin-top:-20vh">
+                                <div class="hero-cap hero-cap2 text-center">
+                                    <h2>Doctor</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Hero End -->
+            <!--? Team Start -->
+            <div class="team-area section-padding30">
+                <div class="container ">
+                    <!-- Section Tittle -->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="section-tittle text-center mb-100">
+                                <span>Our Doctors</span>
+                                <h2>Our Specialist</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex flex-row">
+                        
+                    <% let count=0; if(doctors.length> 0) {%>
+                        <% for(let data of doctors) { if(data.status){%>
+                            
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
+                                    <div class="single-team mb-30">
+                                        <div class="team-img">
+                                            <img src="/upload/<%=data.DoctorImage %>" alt="" height="500px" width="100px">
+                                        </div>
+                                        <div class="team-caption">
+                                            <h3><a href="/doctor-profile/<%-data.slug %>">
+                                                    <%=data.name%>
+                                                </a></h3>
+                                            <span>
+                                                <%=data.specialist%>
+                                            </span>
+                                            <span>
+                                                <%=data.experience%>
+                                            </span>
+                                            <span>
+                                                <%=data.qualification%>
+                                            </span>
+                                            <!-- Team social -->
+                                            <div class="team-social">
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                                <a href="#"><i class="fas fa-globe"></i></a>
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>                                                 
+                                            </div>
+                                            <a href="/appointment" class="btn btn-info" role="button" style="margin-top: 10px; margin-left:50px">Appointment</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%} } }%>
+                            </div>
+                        </div>
+                                   
+            
+
+                </div>
+            </div>
+            <!-- Team End -->
+        </main>
+        <%-include("partial/footer")%>

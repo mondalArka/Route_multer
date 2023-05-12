@@ -1,0 +1,194 @@
+<%- include("partial/header") %>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("partial/sidebar") %>
+
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <%- include("partial/top-nav") %>
+
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
+                            <% if(message.length>0){%>
+                                <div class="<%-alert%>" role="alert">
+                                  <%=message%>
+                                </div>   
+                                <%}%> 
+
+                            <!-- Page Heading -->
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800">All Doctor</h1>
+                            </div>
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    
+                                    <h6 type="button" class="btn btn-primary"
+                                        data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add Doctor
+                                    </h6>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Doctor</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/admin/adddoctor" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Doctor's Name:</label>
+                                                            <input type="text" class="form-control" name="name"
+                                                                placeholder="Doctor's Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Specialist:</label>
+                                                              <select class="form-select" name="specialist" aria-label="Default select example">
+                                                                <option selected>Select Doctor</option>
+                                                                <option value="Dentist">Dentist</option>
+                                                                <option value="Cardiology">Cardiology</option>
+                                                                <option value="Neurology">Neurology</option>
+                                                                <option value="Gastrology">Gastrology</option>
+                                                                <option value="Arthrology">Arthrology</option>
+                                                              </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Experience:</label>
+                                                            <input type="text" class="form-control" name="experience"
+                                                                placeholder="Experience">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Time:</label>
+                                                            <input type="text" class="form-control" name="OPDtime"
+                                                                placeholder="OPD Time">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Qualification:</label>
+                                                            <input type="text" class="form-control" name="qualification"
+                                                                placeholder="Qualification">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Email:</label>
+                                                            <input type="email" class="form-control" name="email"
+                                                                placeholder="Email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Address:</label>
+                                                            <input type="text" class="form-control" name="address"
+                                                                placeholder="Address">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">About :</label>
+                                                                    <textarea class="form-control" name="aboutDoctor" rows="4" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Image:</label>
+                                                            <input type="file" class="form-control" name="image">
+                                                        </div>
+
+                                                        <div class="modal-footer form-group">
+                                                            <label class="col-form-label"></label>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <input type="submit" class="btn btn-primary" value="submit">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Image</th>
+                                                    <th>Name</th>
+                                                    <th>Specialist</th>
+                                                    <th>Experience</th>
+                                                    <th>OPD Time</th>
+                                                    <th>Qualification</th>
+                                                    <th>About Doctor</th>
+                                                    <th>Email</th>
+                                                    <th>Address</th>
+                                                    <th>Status</th>
+                                                    <th>Operation</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <% let count=0; if(doctors.length> 0) {%>
+                                                    <% for(data of doctors) {%>
+                                                        <tr>
+                                                            <td>
+                                                                <%=data.createAt.toDateString()%>
+                                                            </td>
+                                                            <td>
+                                                                <img src="/upload/<%- data.DoctorImage%> " alt="img" width="50px" height="50px">
+                                                            </td>
+                                                            <td>
+                                                                <%=data.name%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data.specialist%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data.experience%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data.OPDtime%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data.qualification%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data.aboutDoctor.slice(0,80)+"..."%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data.email%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data.address%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data.status%>
+                                                            </td>
+                                                            <% if(data.status) {%>
+                                                                <td>
+                                                                    <a href="/admin/deactivedoctor/<%=data._id %>" class="btn btn-warning">Deactive</a>
+                                                                </td>
+                                                                <% } else{%>
+                                                                    <td>
+                                                                        <a href="/admin/activedoctor/<%=data._id %>" class="btn btn-success">Active</a>
+                                                                    </td>                 
+                                                                    <% } %>
+                                                        </tr>
+                                                        <%} }%>
+                                                </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Begin Page Content -->
+                </div>
+                
+                <!-- new table -->
+                
+
+                <!-- End of Main Content -->
+                <%- include("partial/footer") %>

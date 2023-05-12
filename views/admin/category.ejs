@@ -1,0 +1,122 @@
+<%- include("partial/header") %>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("partial/sidebar") %>
+
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <%- include("partial/top-nav") %>
+
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
+                            <% if(message.length>0){%>
+                                <div class="<%-alert%>" role="alert">
+                                  <%=message%>
+                                </div>   
+                                <%}%> 
+                            <!-- Page Heading -->
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800">All Category</h1>
+                            </div>
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    
+                                    <h6  type="button" class="btn btn-primary"
+                                        data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add Category
+                                    </h6>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/admin/addcategory" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Category's Name:</label>
+                                                            <input type="text" class="form-control" name="specialist"
+                                                                placeholder="Category's Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Category Image:</label>
+                                                            <input type="file" class="form-control" name="image"
+                                                                placeholder="image">
+                                                        </div>
+                                                        
+
+                                                        <div class="modal-footer form-group">
+                                                            <label class="col-form-label"></label>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <input type="submit" class="btn btn-primary" value="submit">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Specialist</th>
+                                                    <th>Image</th>
+                                                    <th>Status</th>
+                                                    <th>Operation</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <% let count=0; if(categorys.length> 0) {%>
+                                                    <% for(data of categorys) {%>
+                                                        <tr>
+                                                            <td>
+                                                                <%=data.specialist%>
+                                                            </td>
+                                                            <td>
+                                                                <img src="/upload/<%- data.catImage%> " alt="img" width="50px" height="50px">
+                                                            </td>
+                                                            <td>
+                                                                <%=data.status%>
+                                                            </td>
+                                                            <% if(data.status) {%>
+                                                                <td>
+                                                                    <a href="/admin/deactiveCategory/<%=data._id %>" class="btn btn-warning">Deactive</a>
+                                                                </td>
+                                                                <% } else{%>
+                                                                    <td>
+                                                                        <a href="/admin/activeCategory/<%=data._id %>" class="btn btn-success">Active</a>
+                                                                    </td>                 
+                                                                    <% } %>
+                                                        </tr>
+                                                        <%}}%>
+                                                </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Begin Page Content -->
+                </div>
+                
+                <!-- new table -->
+                
+
+                <!-- End of Main Content -->
+                <%- include("partial/footer") %>

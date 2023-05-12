@@ -1,0 +1,58 @@
+<%-include("partial/head")%>
+
+<%-include("partial/navbar")%>
+<body class="form-v4">
+	<div class="slider-area2" style="height: 200px;">
+		<div class="slider-height2 d-flex align-items-center">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12" style="margin-top:-20vh">
+						<div class="hero-cap hero-cap2 text-center">
+							<h2>LogIn</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Hero End -->
+	<% if (message.length> 0) { %>
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+			<h3><strong>
+					<%=message%>
+				</strong></h3>
+		</div>
+		<% } %>
+	<div class="page-content">
+		
+		
+		<div class="form-v4-content">
+			<div class="form-left">
+				<h2>INFOMATION</h2>
+				<h4 class="text-1">Medica Hospitals, one of the most reputed and leading healthcare chains in eastern India today, </h4>
+				<h5 class="text-2"> has built and managed a number of multispecialty and super-speciality healthcare facilities across the region over the past few years</h5>
+				<div class="form-left-last">
+					<a class="button" href="/register" style="background-color: white;border: none;color: rgb(0, 0, 0);padding: 15px 32px;border-top-left-radius: 5px;border-bottom-right-radius: 5px;display: inline-block;font-size: 16px;font-weight: 700;cursor: pointer;;" >Don't Have An Account?</a>
+				</div>
+			</div>
+			<form class="form-detail" action="/signin" method="post">
+				<h2>LogIn!</h2>
+				
+				<div class="form-row">
+					<label for="your_email">Your Email</label>
+					<input type="text" name="email" value="<%=data1.email%>" id="your_email" class="input-text" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+				</div>
+				<div class="form-group">
+					<div class="form-row ">
+						<label for="password">Password</label>
+						<input type="password" name="password" value="<%=data1.password%>" id="password" class="input-text" required>
+					</div>
+					
+				</div>
+				<button type="submit" class="btn btn-primary btn-user btn-block">LogIn</button>
+			</form>
+		</div>
+	</div>
+	
+    <%-include("partial/footer")%>

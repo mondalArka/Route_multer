@@ -1,0 +1,187 @@
+<%-include("partial/head")%>
+<body>
+   <div id="preloader-active">
+       <div class="preloader d-flex align-items-center justify-content-center">
+           <div class="preloader-inner position-relative">
+               <div class="preloader-circle"></div>
+               <div class="preloader-img pere-text">
+                   <img src="assets/img/logo/loder.png" alt="">
+               </div>
+           </div>
+       </div>
+   </div>
+
+
+    <%-include("partial/navbar")%>
+   <main>
+      <!--? Hero Start -->
+      <div class="slider-area2" style="height: 200px;">
+         <div class="slider-height2 d-flex align-items-center">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-xl-12" style="height: 300px;">
+                           <div class="hero-cap hero-cap2 text-center">
+                              <h2>Blog Details</h2>
+                           </div>
+                     </div>
+                  </div>
+               </div>
+         </div>
+      </div>
+      <!-- Hero End -->
+      <!--================Blog Area =================-->
+      <section class="blog_area single-post-area section-padding">
+         <div class="container">
+
+
+            <div class="row">
+               <div class="col-lg-8 posts-list">
+
+                  <% let count=0; if(blogs.length> 0) {%>
+                     <% for(let data of blogs) { if(data.status){%>
+                  <div class="single-post">
+                     <div class="feature-img">
+                        <img class="card-img rounded-0" src="/upload/<%=data.PostImage %>" alt="" height="400px" width="700px">
+                     </div>
+                     <div class="blog_details">
+                        <h2 style="color: #2d2d2d;"><%=data.title%></h2>
+                        <h3><%=data.subtitle%></h3>
+                        <ul class="blog-info-link mt-3 mb-4">
+                           <li><h3><%-data.createAt.toDateString()%></h3></li>
+                        </ul>
+                        <p class="excert">
+                           <%=data.content%>
+                        </p>
+                     </div>
+                  </div>
+                  <%} } }%>
+
+                  <!-- Comment Section -->
+
+                  <% if(comment.length> 0) {%>
+                     <% for(let data of comment) {if(blogs[0].equals(data.post) && data.status) {%>
+
+                  <div class="comments-area">
+                     <h4></h4>
+                     <div class="comment-list">
+                        <div class="single-comment justify-content-between d-flex">
+                           <div class="user justify-content-between d-flex">
+                              <div class="thumb">
+                                 <img src="assets/img/comment/comment_1.png" alt="">
+                              </div>
+                              <div class="desc">
+                                 
+                                    <h4><strong><%=data.comment%></strong></h4>
+                                 
+                                 <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                       <h5>
+                                          <a href="#" style="color: #747070;"><%=data.name%></a>
+                                       </h5>
+                                       <p class="date"><%=data.createdAt.toDateString()%> </p>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <%} } }%>
+
+                  <!-- Comment form -->
+                  <div class="comment-form">
+                     <h4>Leave a Reply</h4>
+                     <form class="form-contact comment_form" action="/comment" method="post" id="commentForm">
+                        <div class="row">
+                           <div class="col-12">
+                              <div class="form-group">
+                                 <input type="hidden" name="post" value="<%- blogs[0]._id %>">
+                                 <input type="hidden" name="slug" value="<%- blogs[0].slug %>">
+                                 <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
+                                    placeholder="Write Comment"></textarea>
+                              </div>
+                           </div>
+                           <div class="col-sm-6">
+                              <div class="form-group">
+                                 <input class="form-control" name="name" id="name" type="text" placeholder="Name">
+                              </div>
+                           </div>
+                           <div class="col-sm-6">
+                              <div class="form-group">
+                                 <input class="form-control" name="email" id="email" type="email" placeholder="Email">
+                              </div>
+                           </div>
+                           <div class="col-12">
+                              <div class="form-group">
+                                 <input class="form-control" name="website" id="website" type="text" placeholder="Website">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <button type="submit" class="button button-contactForm btn_1 boxed-btn">Post Comment</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+
+
+               <!-- Recent Post -->
+               <div class="col-lg-4">
+                  <div class="blog_right_sidebar">
+                     <aside class="single_sidebar_widget search_widget">
+                        <form action="#">
+                           <div class="form-group">
+                              <div class="input-group mb-3">
+                                 <input type="text" class="form-control" placeholder='Search Keyword'
+                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
+                                 <div class="input-group-append">
+                                    <button class="btns" type="button"><i class="ti-search"></i></button>
+                                 </div>
+                              </div>
+                           </div>
+                           <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
+                              type="submit">Search</button>
+                        </form>
+                     </aside>
+
+
+                     <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title" style="color: #2d2d2d;">Recent Post</h3>
+                        <% for(data of blogs) { if(data.status) {%>
+                        <div class="media post_item">
+                           <a href="/blog-single/<%-data.slug %>"><img src="/upload/<%=data.PostImage %>" alt="" class="img-responsive" style="width: 90px; height: 100px;" /></a>
+                           <div class="media-body">
+                              <a href="/blog-single/<%-data.slug %>">
+                                 <h2 style="color: #2d2d2d;"></a><%-data.title %></h3>
+                                 <time datetime="2020-01-01"><%-data.createAt.toDateString()%></time>
+                              </a>
+                           </div>
+                        </div>
+                        <% }} %>
+                     </aside>
+
+                     <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title" style="color: #2d2d2d;">Recent Comment</h3>
+                        <% for(data of comment) { if(data.status) {%>
+                        <div class="media post_item">
+                           
+                           <div class="media-body">
+                              <a href="#">
+                                 <h2 style="color: #2d2d2d;"></a><%=data.comment%></h3>
+                                    <h3><%=data.name%></h3>
+                                    <h8><%-data.createdAt.toDateString()%></h4>
+                                 
+                              </a>
+                           </div>
+                        </div>
+                        <% }} %>
+                     </aside>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!--================ Blog Area end =================-->
+   </main>
+   <%-include("partial/footer")%>
